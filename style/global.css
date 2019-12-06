@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=EB+Garamond&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'EB Garamond', serif;
+}
+
+/*text*/
+
+.g-title {
+    font-size: 28px;
+    padding: .5em 0 .8em;
+    color: #0c1b1e;
+}
+
+.g-center {
+    margin: auto;
+}
+
+/*loyalty*/
+
+.olfactory {
+    max-width: 1200px;
+    width: 100%;
+    padding: 0 .5em;
+    margin: auto;
+}
