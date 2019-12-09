@@ -14,6 +14,7 @@
         <h1 class="g-title g-center">Ольфакторная карта</h1>
     </div>
 
+    <!--map-->
     <div class="map">
         <div class="map-section map-section--left">
 
@@ -151,8 +152,114 @@
             </div>
 
         </div>
-    </div>
 
+        <!--marker-->
+        <div class="marker marker--position">
+            <div class="marker--active"></div>
+            <p class="marker__title">бла-бла название сырья</p>
+        </div>
+        <!--end marker-->
+
+    </div>
+    <!--end map-->
+
+    <div class="filter">
+
+    </div>
+    <!--end filter-->
+
+    <form class="form" name="olfactory-ad" id="olfactory-ad">
+        <fieldset class="form__fieldset g-half-width">
+            <label for="title-form" class="form__label">Название</label>
+            <input type="text" class="form__input" name="title-form" id="title-form" placeholder="Заголовок">
+        </fieldset>
+
+        <fieldset class="form__fieldset g-half-width">
+            <label for="map-place" class="form__label">Место на карте</label>
+            <input type="text" class="form__input" name="map-place" id="map-place">
+        </fieldset>
+
+        <fieldset class="form__fieldset g-third-width">
+            <label for="type-of-materials" class="form__label">Вид</label>
+            <select class="form__select" name="type-of-materials" id="type-of-materials">
+                <option class="form__option" value="ethereal-oil">Эфирное масло</option>
+                <option class="form__option" value="specific">Конкрет</option>
+                <option class="form__option" value="absolute">Абсолют</option>
+                <option class="form__option" value="tincture">Настойка</option>
+                <option class="form__option" value="pitches">Смолы</option>
+            </select>
+        </fieldset>
+
+        <fieldset class="form__fieldset g-third-width">
+            <label for="type-of-getting" class="form__label">Способ получения</label>
+            <select class="form__select" name="type-of-getting" id="type-of-getting">
+                <option class="form__option" value="steam-distillation">Паровая дистилляция</option>
+                <option class="form__option" value="pressing">Прессование</option>
+            </select>
+        </fieldset>
+
+        <fieldset class="form__fieldset g-third-width">
+            <label for="olfactory-group" class="form__label">Ольфакторная группа</label>
+            <select class="form__select" name="olfactory-group" id='olfactory-group'>
+                <option class="form__option" value="flowers">Цветы</option>
+                <option class="form__option" value="citrus">Цитрус</option>
+                <option class="form__option" value="herbs">Травы</option>
+                <option class="form__option" value="pitches-group">Смолы</option>
+                <option class="form__option" value="wood">Древесные</option>
+            </select>
+        </fieldset>
+
+        <fieldset class="form__fieldset g-half-width">
+            <label for="combination-of-smells" class="form__label">Сочетание запахов</label>
+            <input type="text" class="form__input" name="combination-of-smells" id="combination-of-smells"
+                   placeholder="Впишите ароматы">
+        </fieldset>
+
+        <fieldset class="form__fieldset g-half-width">
+            <label for="note-of-smells" class="form__label">Нота аромата</label>
+            <input type="text" name='note-of-smells' id="note-of-smells" class="form__input">
+        </fieldset>
+
+        <fieldset class="form__fieldset g-full-width">
+            <label for="description-of-smells" id="description-of-smells" class="form__label">Описание аромата
+                <textarea cols="30" rows="10" name="description-of-smells" class="form__textarea"></textarea>
+            </label>
+        </fieldset>
+
+        <div class="form__btn-wrapper">
+            <button class="g-btn g-btn--reset" type="reset" form="olfactory-ad">Очистить</button>
+            <button class="g-btn g-btn--submit" type="submit" form="olfactory-ad">Опубликовать</button>
+        </div>
+
+    </form><!--end form-->
+
+    <!--card-->
+    <div class="card card--hidden card--position">
+        <div class="card--close">X</div>
+        <h2 class="g-subtitle">Название выбранной точки
+            <span class="g-description g-description--sm">(место выбранное на карте)</span>
+        </h2>
+
+        <ul class="card__list">
+            <li class="card__items g-description">Вид <span class="card__items--materials">(эфирное масло)</span></li>
+            <li class="card__items g-description">Способ получения <span class="card__items--getting">(паровая дистилляция)</span>
+            </li>
+            <li class="card__items g-description">Ольфакторная группа <span class="card__items--group">(травы)</span>
+            </li>
+            <li class="card__items g-description">Нота аромата <span class="card__items--notes">(высокая)</span></li>
+        </ul>
+
+        <p class="card__description g-description">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, aspernatur assumenda beatae distinctio
+            dolor dolores eius enim fugit ipsum nam natus nisi nulla porro praesentium quia repudiandae saepe sed
+            tempore!
+        </p>
+
+        <div class="card__btn-wrapper">
+            <button class="g-btn g-btn--submit">Показать сочетания</button>
+        </div>
+    </div>
+    <!--end card-->
 
 </div>
 

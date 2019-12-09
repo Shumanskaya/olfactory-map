@@ -15,6 +15,21 @@
     color: #0c1b1e;
 }
 
+.g-subtitle {
+    font-size: 20px;
+    color: #0a1e18;
+    padding: .5em;
+}
+
+.g-description {
+    font-size: 16px;
+    color: #031e1c;
+}
+
+.g-description--sm {
+    font-size: 14px;
+}
+
 .g-center {
     margin: auto;
 }
@@ -22,8 +37,45 @@
 /*loyalty*/
 
 .olfactory {
-    max-width: 1200px;
+    max-width: 1000px;
     width: 100%;
     padding: 0 .5em;
     margin: auto;
+}
+
+/*column*/
+
+.g-full-width {
+    width: 100%;
+}
+
+.g-half-width {
+    width: 50%;
+}
+
+.g-third-width {
+    width: 33%;
+}
+
+/*button*/
+
+.g-btn {
+    max-width: 200px;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+}
+
+.g-btn--reset {
+    color: #223d31;
+    background-color: white;
+    border: 1px solid #223d31;
+}
+
+.g-btn--submit {
+    background-color: #223d31;
+    border: 1px solid #223d31;
+    color: white;
 }

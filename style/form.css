@@ -1,0 +1,45 @@
+.form {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 16px;
+    margin-top: 12px;
+
+    /*display: none;*/
+}
+
+.form__fieldset {
+    border: none;
+    outline: none;
+    padding: 8px;
+}
+
+.form__label {
+    display: block;
+    width: 100%;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.form__input,
+.form__textarea {
+    outline: none;
+    border: 1px solid #b7b7b7;
+    border-radius: 8px;
+    padding: 6px;
+    width: 100%;
+}
+
+.form__select {
+    outline: none;
+    border: 1px solid #b7b7b7;
+    background-color: white;
+    width: 100%;
+}
+
+.form__btn-wrapper {
+    padding: 12px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
