@@ -17,8 +17,11 @@
 .form__label {
     display: block;
     width: 100%;
-    margin-bottom: 4px;
+}
+
+.form__header {
     font-weight: 600;
+    margin-bottom: 4px;
 }
 
 .form__input,
@@ -30,16 +33,3 @@
     width: 100%;
 }
 
-.form__select {
-    outline: none;
-    border: 1px solid #b7b7b7;
-    background-color: white;
-    width: 100%;
-}
-
-.form__btn-wrapper {
-    padding: 12px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-}

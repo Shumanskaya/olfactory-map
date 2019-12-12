@@ -62,5 +62,73 @@ function hideModal() {
     closeBtn.addEventListener('click', toggleModal);
 }
 
-showModal();
-hideModal();
+/*наполнение объекта*/
+
+const maxXCoords = 960;
+const maxYCoords = 500;
+const dataInformation = {};
+const btnSubmit = document.querySelector('.js-submit-form');
+const olfactoryForm = document.forms.olfactoryAd;
+const name = olfactoryForm.elements.titleForm;
+const material = olfactoryForm.elements.materialsType;
+const group = olfactoryForm.elements.olfactoryGroup;
+const TAG = document.querySelector('.map-wrapper');
+const TEMPLATE = document.querySelector('#marker').content;
+const fragment = document.createDocumentFragment();
+
+function randomCoords(min, max) {
+    return Math.floor(min + Math.random() * (max + 1 - min))
+}
+
+function getRadioValue(fieldsetName) {
+    let inputs = fieldsetName.elements;
+    let value;
+
+    for (let i = 0; i < inputs.length; i++) {
+        if (inputs[i].checked) {
+            value = inputs[i].value;
+        }
+    }
+    return value;
+}
+
+function getInputValue(inputName) {
+    return inputName.value;
+}
+
+
+function fillObjectPlace(x, y) {
+    let obj = {};
+    obj.x = x;
+    obj.y = y;
+
+    return obj;
+}
+
+function fillObjectInformation(titles, types, groups) {
+    let obj = {};
+    obj.title = getInputValue(titles);
+    obj.type = getRadioValue(types);
+    obj.group = getRadioValue(groups);
+    obj.map = fillObjectPlace(randomCoords(0, maxXCoords), randomCoords(0, maxYCoords));
+    return obj;
+}
+
+function addTitleToMarker(marker, information) {
+    let title = marker.querySelector('.marker__title');
+    title.textContent = information.title;
+}
+
+function renderMarker(information) {
+    var element = TEMPLATE.cloneNode(true);
+    addTitleToMarker(element, information);
+    fragment.appendChild(element);
+    TAG.appendChild(fragment);
+    showModal();
+    hideModal();
+    return element;
+}
+
+btnSubmit.addEventListener('click', function () {
+    renderMarker(fillObjectInformation(name, material, group));
+});

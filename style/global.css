@@ -32,6 +32,7 @@
 
 .g-center {
     margin: auto;
+    text-align: center;
 }
 
 /*loyalty*/
@@ -59,6 +60,13 @@
 
 /*button*/
 
+.g-btn-wrapper {
+    padding: 12px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
 .g-btn {
     max-width: 200px;
     width: 100%;
@@ -66,16 +74,18 @@
     border: none;
     outline: none;
     border-radius: 8px;
+    max-height: 50px;
 }
 
-.g-btn--reset {
+.g-btn--first {
+    background-color: #223d31;
+    border: 1px solid #223d31;
+    color: white;
+}
+
+.g-btn--second {
     color: #223d31;
     background-color: white;
     border: 1px solid #223d31;
 }
 
-.g-btn--submit {
-    background-color: #223d31;
-    border: 1px solid #223d31;
-    color: white;
-}
