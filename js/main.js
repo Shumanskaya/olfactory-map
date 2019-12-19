@@ -54,6 +54,7 @@ function toggleModal() {
 
 function showModal() {
     let openBtn = document.querySelector('.marker');
+    fillCard(fillObjectInformation('titleForm', 'materialsType', 'olfactoryGroup', 'noteSmells', 'description-of-smells'))
     openBtn.addEventListener('click', toggleModal);
 }
 
@@ -66,22 +67,27 @@ function hideModal() {
 
 const maxXCoords = 960;
 const maxYCoords = 500;
-const dataInformation = {};
+const dataInformation = [];
 const btnSubmit = document.querySelector('.js-submit-form');
 const olfactoryForm = document.forms.olfactoryAd;
-const name = olfactoryForm.elements.titleForm;
-const material = olfactoryForm.elements.materialsType;
-const group = olfactoryForm.elements.olfactoryGroup;
 const TAG = document.querySelector('.map-wrapper');
 const TEMPLATE = document.querySelector('#marker').content;
 const fragment = document.createDocumentFragment();
+const card = document.querySelector('.card');
+const cardsTitle = card.querySelector('.card__title');
+const cardLocation = card.querySelector('.card__location');
+const cardType = card.querySelector('.card__type');
+const cardMaterial = card.querySelector('.card__material');
+const cardNote = card.querySelector('.card__note');
+const cardDescription = document.querySelector('.card__description');
 
 function randomCoords(min, max) {
     return Math.floor(min + Math.random() * (max + 1 - min))
 }
 
-function getRadioValue(fieldsetName) {
-    let inputs = fieldsetName.elements;
+function getRadioValue(name) {
+    let fieldset = olfactoryForm.elements[name];
+    let inputs = fieldset.elements;
     let value;
 
     for (let i = 0; i < inputs.length; i++) {
@@ -92,12 +98,13 @@ function getRadioValue(fieldsetName) {
     return value;
 }
 
-function getInputValue(inputName) {
-    return inputName.value;
+function getInputValue(name) {
+    let inputs = olfactoryForm.elements[name];
+    return inputs.value;
 }
 
 
-function fillObjectPlace(x, y) {
+function fillObjectLocation(x, y) {
     let obj = {};
     obj.x = x;
     obj.y = y;
@@ -105,13 +112,22 @@ function fillObjectPlace(x, y) {
     return obj;
 }
 
-function fillObjectInformation(titles, types, groups) {
+function fillObjectInformation(titles, types, groups, notes, description) {
     let obj = {};
+    obj.id = `marker0`;
     obj.title = getInputValue(titles);
     obj.type = getRadioValue(types);
-    obj.group = getRadioValue(groups);
-    obj.map = fillObjectPlace(randomCoords(0, maxXCoords), randomCoords(0, maxYCoords));
+    obj.material = getRadioValue(groups);
+    obj.note = getRadioValue(notes);
+    obj.description = getInputValue(description);
+    obj.location = fillObjectLocation(randomCoords(0, maxXCoords), randomCoords(0, maxYCoords));
     return obj;
+}
+
+function fillData(information) {
+    information.id += dataInformation.length;
+    dataInformation.push(information);
+    console.log(dataInformation);
 }
 
 function addTitleToMarker(marker, information) {
@@ -119,9 +135,23 @@ function addTitleToMarker(marker, information) {
     title.textContent = information.title;
 }
 
+function addDataAttrWithIdToMarker(marker, information) {
+    let mark = marker.querySelector('.marker');
+    mark.dataset.index = information.id;
+}
+
+function addRandomMarkerLocation(marker, information) {
+    let pin = marker.querySelector('.marker--position');
+    pin.style.top = information.location.y+'px';
+    pin.style.left = information.location.x+'px';
+}
+
 function renderMarker(information) {
     var element = TEMPLATE.cloneNode(true);
+    fillData(information);
     addTitleToMarker(element, information);
+    addRandomMarkerLocation(element, information);
+    addDataAttrWithIdToMarker(element, information);
     fragment.appendChild(element);
     TAG.appendChild(fragment);
     showModal();
@@ -129,6 +159,14 @@ function renderMarker(information) {
     return element;
 }
 
+function fillCard(information) {
+    cardsTitle.textContent = information.title;
+    cardLocation.textContent = `(место: ${information.location.x} : ${information.location.y})`;
+    cardType.textContent = information.type;
+    cardMaterial.textContent = information.material;
+    cardNote.textContent = information.note;
+    cardDescription.textContent = information.description;
+}
 btnSubmit.addEventListener('click', function () {
-    renderMarker(fillObjectInformation(name, material, group));
+    renderMarker(fillObjectInformation('titleForm', 'materialsType', 'olfactoryGroup', 'noteSmells', 'description-of-smells'));
 });

@@ -264,7 +264,7 @@
             </label>
         </fieldset>
 
-        <fieldset class="form__fieldset g-half-width">
+        <fieldset class="form__fieldset g-half-width" name="noteSmells">
             <p class="form__header">Ароматическая пирамида</p>
             <label for="head-note" class="form__label">
                 <input type="radio" class="form__radio" name="note-of-smells" id="head-note" value="Верхние (головные)">
@@ -297,16 +297,16 @@
     <!--card-->
     <div class="card card--hidden card--position">
         <div class="card--close">X</div>
-        <h2 class="g-subtitle">Название выбранной точки
-            <span class="g-description g-description--sm">(место выбранное на карте)</span>
+        <h2 class="g-subtitle card__title">Название выбранной точки
         </h2>
-
+        <span class="g-description g-description--sm card__location">(место выбранное на карте)</span>
         <ul class="card__list">
-            <li class="card__items g-description">Метод получения <span
+            <li class="card__items g-description card__type">Метод получения <span
                     class="card__items--materials">(эфирное масло)</span></li>
-            <li class="card__items g-description">Ольфакторная группа <span class="card__items--group">(травы)</span>
+            <li class="card__items g-description card__material">Ольфакторная группа <span class="card__items--group">(травы)</span>
             </li>
-            <li class="card__items g-description">Место в пирамиде <span class="card__items--notes">(высокая)</span>
+            <li class="card__items g-description card__note">Место в пирамиде <span
+                    class="card__items--notes">(высокая)</span>
             </li>
         </ul>
 
