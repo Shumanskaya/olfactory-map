@@ -169,7 +169,6 @@ function showModal() {
     let map = document.querySelector('.map');
     map.addEventListener('click', function (e) {
         let marker = e.target.closest('.marker');
-        console.log(marker);
         if (!marker) return;
         if (!map.contains(marker)) return;
         let index = marker.dataset.index;
