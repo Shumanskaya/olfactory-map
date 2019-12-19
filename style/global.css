@@ -89,3 +89,9 @@
     border: 1px solid #223d31;
 }
 
+@media (max-width: 768px) {
+    .g-half-width,
+    .g-third-width {
+        width: 100%;
+    }
+}

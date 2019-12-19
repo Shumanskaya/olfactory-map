@@ -39,30 +39,6 @@ function addColorToItem(arr, color, light) {
 addColorToItem('.map-section--left', 220, 95);
 addColorToItem('.map-section--right', 10, 95);
 
-/*show popup*/
-
-function toggleModal() {
-    let modal = document.querySelector('.card');
-    if (modal.classList.contains('card--hidden')) {
-        modal.classList.remove('card--hidden');
-        modal.classList.add('card--active');
-    } else if (modal.classList.contains('card--active')) {
-        modal.classList.add('card--hidden');
-        modal.classList.remove('card--active');
-    }
-}
-
-function showModal() {
-    let openBtn = document.querySelector('.marker');
-    fillCard(fillObjectInformation('titleForm', 'materialsType', 'olfactoryGroup', 'noteSmells', 'description-of-smells'))
-    openBtn.addEventListener('click', toggleModal);
-}
-
-function hideModal() {
-    let closeBtn = document.querySelector('.card--close');
-    closeBtn.addEventListener('click', toggleModal);
-}
-
 /*наполнение объекта*/
 
 const maxXCoords = 960;
@@ -114,7 +90,7 @@ function fillObjectLocation(x, y) {
 
 function fillObjectInformation(titles, types, groups, notes, description) {
     let obj = {};
-    obj.id = `marker0`;
+    obj.id = 0;
     obj.title = getInputValue(titles);
     obj.type = getRadioValue(types);
     obj.material = getRadioValue(groups);
@@ -127,7 +103,6 @@ function fillObjectInformation(titles, types, groups, notes, description) {
 function fillData(information) {
     information.id += dataInformation.length;
     dataInformation.push(information);
-    console.log(dataInformation);
 }
 
 function addTitleToMarker(marker, information) {
@@ -142,8 +117,8 @@ function addDataAttrWithIdToMarker(marker, information) {
 
 function addRandomMarkerLocation(marker, information) {
     let pin = marker.querySelector('.marker--position');
-    pin.style.top = information.location.y+'px';
-    pin.style.left = information.location.x+'px';
+    pin.style.top = information.location.y + 'px';
+    pin.style.left = information.location.x + 'px';
 }
 
 function renderMarker(information) {
@@ -159,14 +134,52 @@ function renderMarker(information) {
     return element;
 }
 
-function fillCard(information) {
-    cardsTitle.textContent = information.title;
-    cardLocation.textContent = `(место: ${information.location.x} : ${information.location.y})`;
-    cardType.textContent = information.type;
-    cardMaterial.textContent = information.material;
-    cardNote.textContent = information.note;
-    cardDescription.textContent = information.description;
-}
 btnSubmit.addEventListener('click', function () {
     renderMarker(fillObjectInformation('titleForm', 'materialsType', 'olfactoryGroup', 'noteSmells', 'description-of-smells'));
 });
+
+/*show popup*/
+
+/*fill card*/
+function fillCard(arr, index) {
+    cardsTitle.textContent = arr[index].title;
+    cardLocation.textContent = `(место: ${arr[index].location.x} : ${arr[index].location.y})`;
+    cardType.textContent = arr[index].type;
+    cardMaterial.textContent = arr[index].material;
+    cardNote.textContent = arr[index].note;
+    cardDescription.textContent = arr[index].description;
+    // console.log(arr);
+}
+
+/*end fill card*/
+
+function addActiveClassModal() {
+    let modal = document.querySelector('.card');
+    modal.classList.remove('card--hidden');
+    modal.classList.add('card--active');
+}
+
+function deleteActiveClass() {
+    let modal = document.querySelector('.card');
+    modal.classList.add('card--hidden');
+    modal.classList.remove('card--active');
+}
+
+function showModal() {
+    let map = document.querySelector('.map');
+    map.addEventListener('click', function (e) {
+        let marker = e.target.closest('.marker');
+        console.log(marker);
+        if (!marker) return;
+        if (!map.contains(marker)) return;
+        let index = marker.dataset.index;
+        addActiveClassModal();
+        fillCard(dataInformation, +index);
+    })
+}
+
+function hideModal() {
+    let closeBtn = document.querySelector('.card--close');
+    closeBtn.addEventListener('click', deleteActiveClass);
+}
+
