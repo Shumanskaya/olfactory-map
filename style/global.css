@@ -19,15 +19,12 @@
     font-size: 20px;
     color: #0a1e18;
     padding: .5em;
+    line-height: 1;
 }
 
 .g-description {
     font-size: 16px;
     color: #031e1c;
-}
-
-.g-description--sm {
-    font-size: 14px;
 }
 
 .g-center {
@@ -75,6 +72,14 @@
     outline: none;
     border-radius: 8px;
     max-height: 50px;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: box-shadow .5s ease;
+}
+
+.g-btn:hover {
+    box-shadow: 4px 2px 8px 0 rgba(0,0,0,0.75);
 }
 
 .g-btn--first {

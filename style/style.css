@@ -1,7 +1,8 @@
+@import "global.css";
 @import "filter.css";
 @import "form.css";
 @import "map.css";
 @import "header.css";
 @import "marker.css";
 @import "card.css";
-@import "global.css";
+

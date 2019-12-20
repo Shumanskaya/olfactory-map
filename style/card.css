@@ -1,5 +1,6 @@
 .card {
-    width: 200px;
+    max-width: 400px;
+    width: 100%;
     border: 1px solid black;
     border-radius: 8px;
     flex-direction: column;
@@ -28,13 +29,21 @@
     cursor: pointer;
 }
 
+.card__title {
+    padding-left: 0;
+}
+
 .card__list {
     list-style: none;
-    padding: 8px;
 }
 
 .card__items {
     margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.card__items-desc {
+    font-weight: normal;
 }
 
 .card__btn-wrapper {

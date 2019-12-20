@@ -158,7 +158,7 @@ function clearForm() {
     let inputs = olfactoryForm.elements;
 
     for (let i = 0; i < inputs.length; i++) {
-        if (inputs[i].getAttribute('type') === 'text') {
+        if (inputs[i].getAttribute('type') === 'text' || inputs[i].classList.contains('form__textarea')) {
             inputs[i].value = '';
         } else if (inputs[i].getAttribute('type') === 'radio') {
             inputs[i].checked = false;

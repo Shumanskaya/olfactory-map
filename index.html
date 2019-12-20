@@ -179,16 +179,16 @@
 
     <form class="form" name="olfactoryAd" id="olfactory-ad">
         <fieldset class="form__fieldset g-half-width">
-            <label for="title-form" class="form__label form__header">Название</label>
+            <label for="title-form" class="form__header">Название</label>
             <input type="text" class="form__input" name="titleForm" id="title-form" placeholder="Заголовок">
         </fieldset>
 
         <fieldset class="form__fieldset g-half-width">
-            <label for="map-place" class="form__label form__header">Место на карте</label>
+            <label for="map-place" class="form__header">Место на карте</label>
             <input type="text" class="form__input" name="map-place" id="map-place">
         </fieldset>
 
-        <fieldset class="form__fieldset g-half-width-width" name="materialsType">
+        <fieldset class="form__fieldset g-half-width" name="materialsType">
             <p class="form__header">Метод получения экстракта</p>
             <label for="ethereal-oil" class="form__label">
                 <input type="radio" class="form__radio" name="type-of-materials" id="ethereal-oil"
@@ -214,7 +214,7 @@
             </label>
             <label for="co-two" class="form__label">
                 <input type="radio" class="form__radio" name="type-of-materials" id="co-two" value="CO 2-экстракты">
-                CO 2-экстракты
+                CO <span class="form__label--sub">2</span>-экстракты
                 <span class="form__label--radio"></span>
             </label>
             <label for="attar" class="form__label">
@@ -230,7 +230,7 @@
             </label>
         </fieldset>
 
-        <fieldset class="form__fieldset g-half-width-width" name="olfactoryGroup">
+        <fieldset class="form__fieldset g-half-width" name="olfactoryGroup">
             <p class="form__header">Ольфакторная группа</p>
             <label for="flowers" class="form__label">
                 <input type="radio" class="form__radio" name="olfactory-group" id="flowers" value="Цветы">
@@ -270,17 +270,6 @@
             </label>
         </fieldset>
 
-        <fieldset class="form__fieldset g-half-width form__fieldset--combi" name="combinations">
-            <p class="form__header">Сочетание запахов</p>
-            <template id="combi">
-                <label for="combination" class="form__label">
-                    <input type="checkbox" class="form__checkbox" name="combination" id="combination">
-                    <span class="form__label--checkbox"></span>
-                    <span class="form__label-title"></span>
-                </label>
-            </template>
-        </fieldset>
-
         <fieldset class="form__fieldset g-half-width" name="noteSmells">
             <p class="form__header">Ароматическая пирамида</p>
             <label for="head-note" class="form__label">
@@ -301,8 +290,19 @@
             </label>
         </fieldset>
 
+        <fieldset class="form__fieldset g-half-width form__fieldset--combi" name="combinations">
+            <p class="form__header">Сочетание запахов</p>
+            <template id="combi">
+                <label for="combination" class="form__label">
+                    <input type="checkbox" class="form__checkbox" name="combination" id="combination">
+                    <span class="form__label--checkbox"></span>
+                    <span class="form__label-title"></span>
+                </label>
+            </template>
+        </fieldset>
+
         <fieldset class="form__fieldset g-full-width">
-            <label for="description-of-smells" class="form__label">Описание аромата</label>
+            <label for="description-of-smells" class="form__header">Описание аромата</label>
             <textarea cols="30" rows="10" name="description-of-smells" id="description-of-smells"
                       class="form__textarea"></textarea>
         </fieldset>
@@ -319,14 +319,17 @@
         <div class="card--close">X</div>
         <h2 class="g-subtitle card__title">Название выбранной точки
         </h2>
-        <span class="g-description g-description--sm card__location">(место выбранное на карте)</span>
         <ul class="card__list">
-            <li class="card__items g-description card__type">Метод получения <span
-                    class="card__items--materials">(эфирное масло)</span></li>
-            <li class="card__items g-description card__material">Ольфакторная группа <span class="card__items--group">(травы)</span>
+            <li class="card__items g-description">Место выбранное на карте:
+                <p class="card__items-desc card__location">(эфирное масло)</p></li>
+            <li class="card__items g-description">Метод получения:
+                <p class="card__items-desc card__type">(эфирное масло)</p></li>
+            <li class="card__items g-description">Ольфакторная группа:
+                <p class="card__items-desc card__material">
+                (травы)</p>
             </li>
-            <li class="card__items g-description card__note">Место в пирамиде <span
-                    class="card__items--notes">(высокая)</span>
+            <li class="card__items g-description">Место в пирамиде:
+                <p class="card__items-desc card__note">(высокая)</p>
             </li>
         </ul>
 

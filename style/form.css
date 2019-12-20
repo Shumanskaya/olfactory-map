@@ -19,9 +19,16 @@
     width: 100%;
 }
 
+.form__label--sub {
+    vertical-align: sub;
+    font-size: 12px;
+}
+
 .form__header {
+    display: block;
     font-weight: 600;
     margin-bottom: 4px;
+    padding-left: 0;
 }
 
 .form__input,
@@ -31,6 +38,7 @@
     border-radius: 8px;
     padding: 6px;
     width: 100%;
+    font-size: 1em;
 }
 
 /*radiobutton / checkbox style*/
