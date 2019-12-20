@@ -194,32 +194,39 @@
                 <input type="radio" class="form__radio" name="type-of-materials" id="ethereal-oil"
                        value="Эфирное масло">
                 Эфирное масло
+                <span class="form__label--radio"></span>
             </label>
             <label for="specific" class="form__label">
                 <input type="radio" class="form__radio" name="type-of-materials" id="specific" value="Конкрет">
                 Конкрет
+                <span class="form__label--radio"></span>
             </label>
             <label for="absolute" class="form__label">
                 <input type="radio" class="form__radio" name="type-of-materials" id="absolute" value="Абсолют">
                 Абсолют
+                <span class="form__label--radio"></span>
             </label>
             <label for="wax" class="form__label">
                 <input type="radio" class="form__radio" name="type-of-materials" id="wax"
                        value="Воски: цветочный и пчелиный">
                 Воски: цветочный и пчелиный
+                <span class="form__label--radio"></span>
             </label>
             <label for="co-two" class="form__label">
                 <input type="radio" class="form__radio" name="type-of-materials" id="co-two" value="CO 2-экстракты">
                 CO 2-экстракты
+                <span class="form__label--radio"></span>
             </label>
             <label for="attar" class="form__label">
                 <input type="radio" class="form__radio" name="type-of-materials" id="attar" value="Аттары">
                 Аттары (редкие, дорогостоящие)
+                <span class="form__label--radio"></span>
             </label>
             <label for="animal-component" class="form__label">
                 <input type="radio" class="form__radio" name="type-of-materials" id="animal-component"
                        value="Животные компоненты">
                 Животные компоненты (редкие, дорогостоящие)
+                <span class="form__label--radio"></span>
             </label>
         </fieldset>
 
@@ -228,40 +235,50 @@
             <label for="flowers" class="form__label">
                 <input type="radio" class="form__radio" name="olfactory-group" id="flowers" value="Цветы">
                 Цветы
+                <span class="form__label--radio"></span>
             </label>
             <label for="citrus" class="form__label">
                 <input type="radio" class="form__radio" name="olfactory-group" id="citrus" value="Цитрус">
                 Цитрус
+                <span class="form__label--radio"></span>
             </label>
             <label for="herbs" class="form__label">
                 <input type="radio" class="form__radio" name="olfactory-group" id="herbs" value="Травы">
                 Травы
+                <span class="form__label--radio"></span>
             </label>
             <label for="pitches-group" class="form__label">
                 <input type="radio" class="form__radio" name="olfactory-group" id="pitches-group"
                        value="Смолы и бальзамы">
                 Смолы и бальзамы
+                <span class="form__label--radio"></span>
             </label>
             <label for="wood" class="form__label">
                 <input type="radio" class="form__radio" name="olfactory-group" id="wood" value="Деревья">
                 Деревья
+                <span class="form__label--radio"></span>
             </label>
             <label for="spices" class="form__label">
                 <input type="radio" class="form__radio" name="olfactory-group" id="spices" value="Пряности">
                 Пряности
+                <span class="form__label--radio"></span>
             </label>
             <label for="root" class="form__label">
                 <input type="radio" class="form__radio" name="olfactory-group" id="root" value="Корни">
                 Корни
+                <span class="form__label--radio"></span>
             </label>
         </fieldset>
 
-        <fieldset class="form__fieldset g-half-width">
+        <fieldset class="form__fieldset g-half-width form__fieldset--combi" name="combinations">
             <p class="form__header">Сочетание запахов</p>
-            <label for="combination" class="form__label">
-                <input type="checkbox" class="form__checkbox" name="combination" id="combination">
-                {{combination}}
-            </label>
+            <template id="combi">
+                <label for="combination" class="form__label">
+                    <input type="checkbox" class="form__checkbox" name="combination" id="combination">
+                    <span class="form__label--checkbox"></span>
+                    <span class="form__label-title"></span>
+                </label>
+            </template>
         </fieldset>
 
         <fieldset class="form__fieldset g-half-width" name="noteSmells">
@@ -269,15 +286,18 @@
             <label for="head-note" class="form__label">
                 <input type="radio" class="form__radio" name="note-of-smells" id="head-note" value="Верхние (головные)">
                 Верхние (головные)
+                <span class="form__label--radio"></span>
             </label>
             <label for="heart-note" class="form__label">
                 <input type="radio" class="form__radio" name="note-of-smells" id="heart-note"
                        value="Средние (сердечные)">
                 Средние (сердечные)
+                <span class="form__label--radio"></span>
             </label>
             <label for="base-note" class="form__label">
                 <input type="radio" class="form__radio" name="note-of-smells" id="base-note" value="Нижние (базовые)">
                 Нижние (базовые)
+                <span class="form__label--radio"></span>
             </label>
         </fieldset>
 

@@ -88,7 +88,7 @@ function fillObjectLocation(x, y) {
     return obj;
 }
 
-function fillObjectInformation(titles, types, groups, notes, description) {
+function fillObjectInformation(titles, types, groups, notes, description, combination) {
     let obj = {};
     obj.id = 0;
     obj.title = getInputValue(titles);
@@ -122,7 +122,7 @@ function addRandomMarkerLocation(marker, information) {
 }
 
 function renderMarker(information) {
-    var element = TEMPLATE.cloneNode(true);
+    let element = TEMPLATE.cloneNode(true);
     fillData(information);
     addTitleToMarker(element, information);
     addRandomMarkerLocation(element, information);
@@ -131,11 +131,45 @@ function renderMarker(information) {
     TAG.appendChild(fragment);
     showModal();
     hideModal();
-    return element;
+}
+
+/*add input combination*/
+
+const combinationInput = document.querySelector('.form__fieldset--combi');
+const inputTemplate = document.querySelector('#combi').content;
+
+function renderCombinationInput(arr) {
+    let element = inputTemplate.cloneNode(true);
+    let title = element.querySelector('.form__label-title');
+    let label = element.querySelector('.form__label');
+    let input = element.querySelector('.form__checkbox');
+    let arrLength = arr.length-1;
+    label.setAttribute('for', `combination${arrLength}`);
+    input.setAttribute('id', `combination${arrLength}`);
+    title.textContent = arr[arrLength].title;
+
+    fragment.appendChild(element);
+    combinationInput.appendChild(fragment);
+}
+
+/*clear form after submit*/
+
+function clearForm() {
+    let inputs = olfactoryForm.elements;
+
+    for (let i = 0; i < inputs.length; i++) {
+        if (inputs[i].getAttribute('type') === 'text') {
+            inputs[i].value = '';
+        } else if (inputs[i].getAttribute('type') === 'radio') {
+            inputs[i].checked = false;
+        }
+    }
 }
 
 btnSubmit.addEventListener('click', function () {
     renderMarker(fillObjectInformation('titleForm', 'materialsType', 'olfactoryGroup', 'noteSmells', 'description-of-smells'));
+    renderCombinationInput(dataInformation);
+    clearForm();
 });
 
 /*show popup*/
@@ -148,7 +182,6 @@ function fillCard(arr, index) {
     cardMaterial.textContent = arr[index].material;
     cardNote.textContent = arr[index].note;
     cardDescription.textContent = arr[index].description;
-    // console.log(arr);
 }
 
 /*end fill card*/
@@ -181,4 +214,3 @@ function hideModal() {
     let closeBtn = document.querySelector('.card--close');
     closeBtn.addEventListener('click', deleteActiveClass);
 }
-

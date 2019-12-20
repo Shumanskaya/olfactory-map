@@ -33,3 +33,50 @@
     width: 100%;
 }
 
+/*radiobutton / checkbox style*/
+
+.form__radio,
+.form__checkbox {
+    display: none;
+}
+
+.form__label {
+    position: relative;
+    padding-left: 20px;
+}
+
+.form__label--radio:before,
+.form__label--checkbox:before {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    border: 1px solid #223d31;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.form__label--radio:before {
+    border-radius: 50%;
+}
+
+.form__radio:checked + .form__label--radio:after,
+.form__checkbox:checked + .form__label--checkbox:after {
+    content: '';
+    position: absolute;
+    background-color: #223d31;
+    width: 6px;
+    height: 6px;
+    top: 0;
+    left: 4px;
+    bottom: 0;
+    margin: auto;
+}
+
+.form__radio:checked + .form__label--radio:after {
+    border-radius: 50%;
+}
+
