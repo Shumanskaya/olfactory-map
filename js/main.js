@@ -143,7 +143,7 @@ function renderCombinationInput(arr) {
     let title = element.querySelector('.form__label-title');
     let label = element.querySelector('.form__label');
     let input = element.querySelector('.form__checkbox');
-    let arrLength = arr.length-1;
+    let arrLength = arr.length - 1;
     label.setAttribute('for', `combination${arrLength}`);
     input.setAttribute('id', `combination${arrLength}`);
     title.textContent = arr[arrLength].title;
@@ -214,3 +214,42 @@ function hideModal() {
     let closeBtn = document.querySelector('.card--close');
     closeBtn.addEventListener('click', deleteActiveClass);
 }
+
+
+/*drag&drop*/
+
+const testMark = document.querySelector('.drag-marker');
+
+function getCoords(elem) {
+    let coords = elem.getBoundingClientRect();
+    return {
+        left: coords.left + pageXOffset,
+        top: coords.top + pageYOffset,
+    }
+}
+
+function dragAndDrop(element) {
+    let activity;
+    element.addEventListener('mousedown', function (e) {
+        activity = true;
+        TAG.addEventListener('mousemove', dragMarker);
+        console.log(activity);
+    });
+
+    element.addEventListener('mouseup', function () {
+        activity = false;
+        TAG.removeEventListener('mousemove', dragMarker);
+        console.log(activity);
+    });
+}
+
+function dragMarker(e) {
+    let coords = getCoords(TAG);
+    let left = e.pageX - coords.left - (testMark.clientWidth * 0.5);
+    let top = e.pageY - coords.top - (testMark.clientHeight * 0.5);
+    testMark.style.left = `${left}px`;
+    testMark.style.top = `${top}px`;
+    console.log(`left = ${left}, top = ${top}`);
+}
+
+dragAndDrop(testMark);

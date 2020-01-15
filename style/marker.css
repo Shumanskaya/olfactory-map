@@ -20,6 +20,29 @@
     transition: background-color 1s ease;
 }
 
+.marker--drag {
+    animation: canDragMarker 2s ease-in-out infinite;
+}
+
+@keyframes canDragMarker {
+    0% {
+        -webkit-box-shadow: 0 0 0 0 #223d31;
+        -moz-box-shadow: 0 0 0 0 #223d31;
+        box-shadow: 0 0 0 0 #223d31;
+    }
+    50% {
+        -webkit-box-shadow: 0 0 10px 5px #223d31;
+        -moz-box-shadow: 0 0 10px 5px #223d31;
+        box-shadow: 0 0 10px 5px #223d31;
+    }
+    100% {
+        -webkit-box-shadow: 0 0 0 0 #223d31;
+        -moz-box-shadow: 0 0 0 0 #223d31;
+        box-shadow: 0 0 0 0 #223d31;
+    }
+}
+
+
 .marker:hover .marker--active {
     background-color: #223d31;
 }
