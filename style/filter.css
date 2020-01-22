@@ -1,0 +1,15 @@
+.filter {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    margin-top: 30px;
+    border: 1px solid #223d31;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+@media (max-width: 768px) {
+    .filter {
+        flex-wrap: wrap;
+    }
+}

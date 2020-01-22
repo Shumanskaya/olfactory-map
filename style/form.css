@@ -88,3 +88,12 @@
     border-radius: 50%;
 }
 
+/*select*/
+
+.form__select {
+    outline: none;
+    border: 1px solid #b7b7b7;
+    border-radius: 8px;
+    background-color: white;
+    height: 30px;
+}

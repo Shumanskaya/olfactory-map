@@ -73,14 +73,14 @@ addColorToItem('.map-section--right', 10, 95);
 
 /*drag&drop*/
 
-function showMark() {
-    markerForDrag.classList.remove('marker_drag--disabled');
-    markerForDrag.classList.add('marker_drag--active');
+function showMark(element) {
+    element.classList.remove('marker_drag--disabled');
+    element.classList.add('marker_drag--active');
 }
 
-function hiddenMark() {
-    markerForDrag.classList.add('marker_drag--disabled');
-    markerForDrag.classList.remove('marker_drag--active');
+function hiddenMark(element) {
+    element.classList.add('marker_drag--disabled');
+    element.classList.remove('marker_drag--active');
 }
 
 function getCoords(elem) {
@@ -140,7 +140,6 @@ function getInputValue(name) {
     return inputs.value;
 }
 
-
 function fillObjectLocation(x, y) {
     let obj = {};
     obj.x = x;
@@ -163,6 +162,8 @@ function fillObjectInformation(titles, types, groups, notes, description) {
 function fillData(information) {
     information.id += dataInformation.length;
     dataInformation.push(information);
+    console.log(dataInformation);
+    return dataInformation;
 }
 
 function addTitleToMarker(marker, information) {
@@ -270,58 +271,49 @@ hideModal();
 
 /**/
 
-/*изменение кнопок*/
+/*обновление расположения в данных*/
+
 
 
 /*реадктирование всех меток*/
 
-function editMap() {
+function editMap(drag) {
     let markers = document.querySelectorAll('.marker');
     let marker;
     let dot;
-
     for (let i = 0; i < markers.length; i++) {
         marker = markers[i];
         dot = marker.querySelector('.marker--active');
-        marker.classList.add('js-marker-drag');
-        marker.classList.remove('marker-modal');
-        dot.classList.add('marker--drag');
-        dragAndDrop(marker);
-        btnEditAllMarker.classList.add('g-btn--hidden');
-        btnCancelEditMap.classList.remove('g-btn--hidden');
+        marker.classList.toggle('js-marker-drag');
+        marker.classList.toggle('marker-modal');
+        dot.classList.toggle('marker--drag');
+
+        if (drag === true) {
+            dragAndDrop(marker);
+            btnEditAllMarker.classList.add('g-btn--hidden');
+            btnCancelEditMap.classList.remove('g-btn--hidden');
+        } else {
+            btnEditAllMarker.classList.remove('g-btn--hidden');
+            btnCancelEditMap.classList.add('g-btn--hidden');
+        }
     }
 }
-
-function cancelEditMap() {
-    let markers = document.querySelectorAll('.marker');
-    let marker;
-    let dot;
-
-    for (let i = 0; i < markers.length; i++) {
-        marker = markers[i];
-        dot = marker.querySelector('.marker--active');
-        marker.classList.remove('js-marker-drag');
-        marker.classList.add('marker-modal');
-        dot.classList.remove('marker--drag');
-        btnEditAllMarker.classList.remove('g-btn--hidden');
-        btnCancelEditMap.classList.add('g-btn--hidden');
-    }
-}
-
-btnEditAllMarker.addEventListener('click', editMap);
-btnCancelEditMap.addEventListener('click', cancelEditMap);
 
 /**/
-
 
 btnSubmit.addEventListener('click', function () {
     renderMarker(fillObjectInformation('titleForm', 'materialsType', 'olfactoryGroup', 'noteSmells', 'description-of-smells'));
     renderCombinationInput(dataInformation);
     clearForm();
-    hiddenMark();
+    hiddenMark(markerForDrag);
 });
 
 btnAddInformation.addEventListener('click', function () {
-    showMark();
+    showMark(markerForDrag);
     dragAndDrop(markerForDrag);
+});
+
+btnEditAllMarker.addEventListener('click', () => editMap(true));
+btnCancelEditMap.addEventListener('click', function () {
+    editMap(false);
 });
