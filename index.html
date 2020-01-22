@@ -14,8 +14,9 @@
         <h1 class="g-title g-center g-full-width">Ольфакторная карта</h1>
 
         <div class="g-btn-wrapper">
-            <button class="g-btn g-btn--first">Добавить информацию</button>
-            <button class="g-btn g-btn--first">Редактировать карту</button>
+            <button class="g-btn g-btn--first js-btn-addMarker">Добавить информацию</button>
+            <button class="g-btn g-btn--first js-btn-editAllMarker">Редактировать карту</button>
+            <button class="g-btn g-btn--first js-btn-cancelEditAllMarker g-btn--hidden">Сохранить изменения</button>
         </div>
 
     </div>
@@ -170,7 +171,7 @@
 
         <!-- DragAndDrop test -->
 
-        <div class="marker marker--position drag-marker">
+        <div class="marker marker_drag--disabled js-marker-drag">
             <div class="marker--active marker--drag"></div>
             <p class="marker__title">Перенесите точку на желаемое место</p>
         </div>
@@ -224,7 +225,7 @@
             </label>
             <label for="co-two" class="form__label">
                 <input type="radio" class="form__radio" name="type-of-materials" id="co-two" value="CO 2-экстракты">
-                CO <span class="form__label--sub">2</span>-экстракты
+                CO2-экстракты
                 <span class="form__label--radio"></span>
             </label>
             <label for="attar" class="form__label">

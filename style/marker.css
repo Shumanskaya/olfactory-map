@@ -12,6 +12,17 @@
     left: 130px;
 }
 
+.marker_drag--disabled {
+    display: none;
+}
+
+.marker_drag--active {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: auto;
+}
+
 .marker--active {
     background-color: white;
     width: 15px;

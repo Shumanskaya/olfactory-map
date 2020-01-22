@@ -1,3 +1,33 @@
+const maxXCoords = 960;
+const maxYCoords = 500;
+/*массив со всей информацией*/
+const dataInformation = [];
+/*объект с расположением точки*/
+let locationMarker = {};
+/*переменные формы*/
+const olfactoryForm = document.forms.olfactoryAd;
+const combinationInput = document.querySelector('.form__fieldset--combi');
+const inputTemplate = document.querySelector('#combi').content;
+/*переменные для создания маркера*/
+const TAG = document.querySelector('.map-wrapper');
+const TEMPLATE = document.querySelector('#marker').content;
+const fragment = document.createDocumentFragment();
+/*переменные для наполнения карты (всплывающее мод окно)*/
+const card = document.querySelector('.card');
+const cardsTitle = card.querySelector('.card__title');
+const cardLocation = card.querySelector('.card__location');
+const cardType = card.querySelector('.card__type');
+const cardMaterial = card.querySelector('.card__material');
+const cardNote = card.querySelector('.card__note');
+const cardDescription = document.querySelector('.card__description');
+/*маркер для создания новой точки*/
+const markerForDrag = document.querySelector('.js-marker-drag');
+/*кнопки действия*/
+const btnSubmit = document.querySelector('.js-submit-form');
+const btnAddInformation = document.querySelector('.js-btn-addMarker');
+const btnEditAllMarker = document.querySelector('.js-btn-editAllMarker');
+const btnCancelEditMap = document.querySelector('.js-btn-cancelEditAllMarker');
+
 /*add color to column*/
 function searchColumn(selector) {
     let parent = document.querySelectorAll(selector);
@@ -39,23 +69,54 @@ function addColorToItem(arr, color, light) {
 addColorToItem('.map-section--left', 220, 95);
 addColorToItem('.map-section--right', 10, 95);
 
-/*наполнение объекта*/
+/*end color column*/
 
-const maxXCoords = 960;
-const maxYCoords = 500;
-const dataInformation = [];
-const btnSubmit = document.querySelector('.js-submit-form');
-const olfactoryForm = document.forms.olfactoryAd;
-const TAG = document.querySelector('.map-wrapper');
-const TEMPLATE = document.querySelector('#marker').content;
-const fragment = document.createDocumentFragment();
-const card = document.querySelector('.card');
-const cardsTitle = card.querySelector('.card__title');
-const cardLocation = card.querySelector('.card__location');
-const cardType = card.querySelector('.card__type');
-const cardMaterial = card.querySelector('.card__material');
-const cardNote = card.querySelector('.card__note');
-const cardDescription = document.querySelector('.card__description');
+/*drag&drop*/
+
+function showMark() {
+    markerForDrag.classList.remove('marker_drag--disabled');
+    markerForDrag.classList.add('marker_drag--active');
+}
+
+function hiddenMark() {
+    markerForDrag.classList.add('marker_drag--disabled');
+    markerForDrag.classList.remove('marker_drag--active');
+}
+
+function getCoords(elem) {
+    let coords = elem.getBoundingClientRect();
+    return {
+        left: coords.left + pageXOffset,
+        top: coords.top + pageYOffset,
+    }
+}
+
+function dragMarker(e, element) {
+    let coords = getCoords(TAG);
+    let left = e.pageX - coords.left - (element.clientWidth * 0.5);
+    let top = e.pageY - coords.top - (element.clientHeight * 0.5);
+    if (element.classList.contains('js-marker-drag')) {
+        element.style.left = `${left}px`;
+        element.style.top = `${top}px`;
+        locationMarker.x = left;
+        locationMarker.y = top;
+    }
+}
+
+function dragAndDrop(element) {
+    let handler = (e) => dragMarker(e, element);
+    element.addEventListener('mousedown', function () {
+        TAG.addEventListener('mousemove', handler);
+    });
+
+    element.addEventListener('mouseup', function () {
+        TAG.removeEventListener('mousemove', handler);
+    });
+}
+
+/*end drag&drop*/
+
+/*наполнение объекта*/
 
 function randomCoords(min, max) {
     return Math.floor(min + Math.random() * (max + 1 - min))
@@ -84,11 +145,10 @@ function fillObjectLocation(x, y) {
     let obj = {};
     obj.x = x;
     obj.y = y;
-
     return obj;
 }
 
-function fillObjectInformation(titles, types, groups, notes, description, combination) {
+function fillObjectInformation(titles, types, groups, notes, description) {
     let obj = {};
     obj.id = 0;
     obj.title = getInputValue(titles);
@@ -96,7 +156,7 @@ function fillObjectInformation(titles, types, groups, notes, description, combin
     obj.material = getRadioValue(groups);
     obj.note = getRadioValue(notes);
     obj.description = getInputValue(description);
-    obj.location = fillObjectLocation(randomCoords(0, maxXCoords), randomCoords(0, maxYCoords));
+    obj.location = fillObjectLocation(locationMarker.x, locationMarker.y);
     return obj;
 }
 
@@ -113,9 +173,10 @@ function addTitleToMarker(marker, information) {
 function addDataAttrWithIdToMarker(marker, information) {
     let mark = marker.querySelector('.marker');
     mark.dataset.index = information.id;
+    mark.classList.add('marker-modal');
 }
 
-function addRandomMarkerLocation(marker, information) {
+function setMarkerLocation(marker, information) {
     let pin = marker.querySelector('.marker--position');
     pin.style.top = information.location.y + 'px';
     pin.style.left = information.location.x + 'px';
@@ -125,18 +186,13 @@ function renderMarker(information) {
     let element = TEMPLATE.cloneNode(true);
     fillData(information);
     addTitleToMarker(element, information);
-    addRandomMarkerLocation(element, information);
+    setMarkerLocation(element, information);
     addDataAttrWithIdToMarker(element, information);
     fragment.appendChild(element);
     TAG.appendChild(fragment);
-    showModal();
-    hideModal();
 }
 
 /*add input combination*/
-
-const combinationInput = document.querySelector('.form__fieldset--combi');
-const inputTemplate = document.querySelector('#combi').content;
 
 function renderCombinationInput(arr) {
     let element = inputTemplate.cloneNode(true);
@@ -166,14 +222,6 @@ function clearForm() {
     }
 }
 
-btnSubmit.addEventListener('click', function () {
-    renderMarker(fillObjectInformation('titleForm', 'materialsType', 'olfactoryGroup', 'noteSmells', 'description-of-smells'));
-    renderCombinationInput(dataInformation);
-    clearForm();
-});
-
-/*show popup*/
-
 /*fill card*/
 function fillCard(arr, index) {
     cardsTitle.textContent = arr[index].title;
@@ -185,6 +233,8 @@ function fillCard(arr, index) {
 }
 
 /*end fill card*/
+
+/*show popup*/
 
 function addActiveClassModal() {
     let modal = document.querySelector('.card');
@@ -201,7 +251,7 @@ function deleteActiveClass() {
 function showModal() {
     let map = document.querySelector('.map');
     map.addEventListener('click', function (e) {
-        let marker = e.target.closest('.marker');
+        let marker = e.target.closest('.marker-modal');
         if (!marker) return;
         if (!map.contains(marker)) return;
         let index = marker.dataset.index;
@@ -215,41 +265,63 @@ function hideModal() {
     closeBtn.addEventListener('click', deleteActiveClass);
 }
 
+showModal();
+hideModal();
 
-/*drag&drop*/
+/**/
 
-const testMark = document.querySelector('.drag-marker');
+/*изменение кнопок*/
 
-function getCoords(elem) {
-    let coords = elem.getBoundingClientRect();
-    return {
-        left: coords.left + pageXOffset,
-        top: coords.top + pageYOffset,
+
+/*реадктирование всех меток*/
+
+function editMap() {
+    let markers = document.querySelectorAll('.marker');
+    let marker;
+    let dot;
+
+    for (let i = 0; i < markers.length; i++) {
+        marker = markers[i];
+        dot = marker.querySelector('.marker--active');
+        marker.classList.add('js-marker-drag');
+        marker.classList.remove('marker-modal');
+        dot.classList.add('marker--drag');
+        dragAndDrop(marker);
+        btnEditAllMarker.classList.add('g-btn--hidden');
+        btnCancelEditMap.classList.remove('g-btn--hidden');
     }
 }
 
-function dragAndDrop(element) {
-    let activity;
-    element.addEventListener('mousedown', function (e) {
-        activity = true;
-        TAG.addEventListener('mousemove', dragMarker);
-        console.log(activity);
-    });
+function cancelEditMap() {
+    let markers = document.querySelectorAll('.marker');
+    let marker;
+    let dot;
 
-    element.addEventListener('mouseup', function () {
-        activity = false;
-        TAG.removeEventListener('mousemove', dragMarker);
-        console.log(activity);
-    });
+    for (let i = 0; i < markers.length; i++) {
+        marker = markers[i];
+        dot = marker.querySelector('.marker--active');
+        marker.classList.remove('js-marker-drag');
+        marker.classList.add('marker-modal');
+        dot.classList.remove('marker--drag');
+        btnEditAllMarker.classList.remove('g-btn--hidden');
+        btnCancelEditMap.classList.add('g-btn--hidden');
+    }
 }
 
-function dragMarker(e) {
-    let coords = getCoords(TAG);
-    let left = e.pageX - coords.left - (testMark.clientWidth * 0.5);
-    let top = e.pageY - coords.top - (testMark.clientHeight * 0.5);
-    testMark.style.left = `${left}px`;
-    testMark.style.top = `${top}px`;
-    console.log(`left = ${left}, top = ${top}`);
-}
+btnEditAllMarker.addEventListener('click', editMap);
+btnCancelEditMap.addEventListener('click', cancelEditMap);
 
-dragAndDrop(testMark);
+/**/
+
+
+btnSubmit.addEventListener('click', function () {
+    renderMarker(fillObjectInformation('titleForm', 'materialsType', 'olfactoryGroup', 'noteSmells', 'description-of-smells'));
+    renderCombinationInput(dataInformation);
+    clearForm();
+    hiddenMark();
+});
+
+btnAddInformation.addEventListener('click', function () {
+    showMark();
+    dragAndDrop(markerForDrag);
+});

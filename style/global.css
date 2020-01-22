@@ -94,6 +94,10 @@
     border: 1px solid #223d31;
 }
 
+.g-btn--hidden {
+    display: none;
+}
+
 @media (max-width: 768px) {
     .g-half-width,
     .g-third-width {
